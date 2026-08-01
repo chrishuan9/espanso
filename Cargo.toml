@@ -59,6 +59,12 @@ dirs = "3.0.1"
 enum-as-inner = "0.6.0"
 fs_extra = "1.3.0"
 glob = "0.3.0"
+image = { version = "0.25", default-features = false, features = ["png"] }
+# "blocking" needs either the default "tokio" feature or "async-io" enabled
+# alongside it (ksni has no fully runtime-free mode) - see espanso-ui/src/linux/mod.rs.
+# The tokio runtime it spins up is a private, lazily-built single-thread runtime fully
+# internal to ksni's blocking::Handle::update/spawn - nothing in espanso itself becomes async.
+ksni = { version = "0.3.6", features = ["blocking"] }
 lazycell = "1.3.0"
 log = "0.4.14"
 notify-rust = "4.11.7"

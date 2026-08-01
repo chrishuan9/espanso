@@ -41,7 +41,7 @@ pub trait UIRemote: Send {
     fn exit(&self);
 }
 
-pub type UIEventCallback = Box<dyn Fn(event::UIEvent)>;
+pub type UIEventCallback = Box<dyn Fn(event::UIEvent) + Send>;
 pub trait UIEventLoop {
     fn initialize(&mut self) -> Result<()>;
     fn run(&self, event_callback: UIEventCallback) -> Result<()>;
@@ -87,6 +87,8 @@ pub fn create_ui(options: UIOptions) -> Result<(Box<dyn UIRemote>, Box<dyn UIEve
 #[cfg(target_os = "linux")]
 pub fn create_ui(options: UIOptions) -> Result<(Box<dyn UIRemote>, Box<dyn UIEventLoop>)> {
     let (remote, eventloop) = linux::create(linux::LinuxUIOptions {
+        show_icon: options.show_icon,
+        icon_paths: options.icon_paths,
         notification_icon_path: options
             .notification_icon_path
             .ok_or_else(|| UIError::MissingOption("notification icon".to_string()))?,

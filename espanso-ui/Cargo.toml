@@ -28,6 +28,8 @@ lazycell.workspace = true
 [target.'cfg(target_os="linux")'.dependencies]
 notify-rust.workspace = true
 crossbeam.workspace = true
+ksni.workspace = true
+image.workspace = true
 
 [build-dependencies]
 cc.workspace = true

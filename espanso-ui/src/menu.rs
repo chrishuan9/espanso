@@ -20,7 +20,7 @@
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Menu {
     pub items: Vec<MenuItem>,
 }
@@ -31,7 +31,7 @@ impl Menu {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(tag = "type")]
 #[serde(rename_all = "snake_case")]
 pub enum MenuItem {
@@ -40,13 +40,13 @@ pub enum MenuItem {
     Separator,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SimpleMenuItem {
     pub id: u32,
     pub label: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SubMenuItem {
     pub label: String,
     pub items: Vec<MenuItem>,

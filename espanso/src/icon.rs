@@ -46,6 +46,10 @@ const MAC_ACCESSIBILITY_2_BINARY: &[u8] = include_bytes!("res/accessibility_2.pn
 #[cfg(target_os = "macos")]
 const MAC_STATUS_ICON_EXPLAIN_IMAGE: &[u8] = include_bytes!("res/macos/icon_explain_image.png");
 
+// Reuses macOS's disabled tray art since there's no Linux-specific variant yet.
+#[cfg(target_os = "linux")]
+const LINUX_TRAY_DISABLED_BINARY: &[u8] = include_bytes!("res/macos/icondisabled.png");
+
 #[allow(dead_code)]
 #[derive(Debug, Default)]
 pub struct IconPaths {
@@ -143,6 +147,14 @@ pub fn load_icon_paths(runtime_dir: &Path) -> Result<IconPaths> {
         logo_no_background: Some(extract_icon(
             LOGO_NO_BACKGROUND_BINARY,
             &runtime_dir.join("icon_no_background.png"),
+        )?),
+        tray_icon_normal: Some(extract_icon(
+            ICON_BINARY,
+            &runtime_dir.join("normalv2.png"),
+        )?),
+        tray_icon_disabled: Some(extract_icon(
+            LINUX_TRAY_DISABLED_BINARY,
+            &runtime_dir.join("disabledv2.png"),
         )?),
         ..Default::default()
     })
