@@ -84,7 +84,7 @@ pub fn create(options: MacUIOptions) -> Result<(MacRemote, MacEventLoop)> {
     Ok((remote, eventloop))
 }
 
-pub type MacUIEventCallback = Box<dyn Fn(UIEvent)>;
+pub type MacUIEventCallback = Box<dyn Fn(UIEvent) + Send>;
 
 pub struct MacEventLoop {
     show_icon: bool,
